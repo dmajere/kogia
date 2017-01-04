@@ -75,7 +75,7 @@ func kogia_init(c *cli.Context) {
 	}()
 	ticker := time.NewTicker(time.Second * 5)
 	go func() {
-		for _ := range ticker.C {
+		for _ = range ticker.C {
 			reapChildren()
 		}
 	}()
