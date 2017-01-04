@@ -5,6 +5,7 @@ import (
 	"os/exec"
 	"os/signal"
 	"syscall"
+	"time"
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
@@ -70,6 +71,12 @@ func kogia_init(c *cli.Context) {
 			case syscall.SIGCHLD:
 				reapChildren()
 			}
+		}
+	}()
+	ticker := time.NewTicker(time.Second * 5)
+	go func() {
+		for _ := range ticker.C {
+			reapChildren()
 		}
 	}()
 
