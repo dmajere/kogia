@@ -81,11 +81,13 @@ func kogia_init(c *cli.Context) {
 	err = cmd.Start()
 	if err != nil {
 		log.Error(err.Error())
+		reapChildren()
 		os.Exit(1)
 	}
 	err = cmd.Wait()
 	if err != nil {
 		log.Error(err.Error())
 	}
+	reapChildren()
 	log.Info("Exit")
 }
